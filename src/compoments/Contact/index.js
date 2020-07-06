@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
+import InputMask from 'react-input-mask';
 import { FiArrowLeft } from 'react-icons/fi';
 import './styles.css';
 import api from '../../services/api';
@@ -110,10 +111,11 @@ const CreatePoint = () => {
                         </div>
                         <div className="field">
                             <label htmlFor="name">Whatsapp</label>
-                            <input 
+                            <InputMask 
                                 type="text"
                                 name="phone"
                                 id="phone"
+                                mask="(99) 99999-9999"
                                 value={formData.phone}
                                 onChange={handleInputChange}
                                 disabled={isShow}
