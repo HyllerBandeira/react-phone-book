@@ -1,11 +1,10 @@
-import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { Link, useHistory, useParams, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import './styles.css';
 import api from '../../services/api';
 
 const CreatePoint = () => {
-    const location = useLocation();
     const { id, mode } = useParams();
     const isCreate = typeof id === `undefined`
     const isShow = mode !== 'edit' && !isCreate
@@ -24,7 +23,7 @@ const CreatePoint = () => {
                     setFormData(response.data)
                 })
         }
-    }, [ id ])
+    }, [ id, isCreate ])
 
     const history = useHistory();
     

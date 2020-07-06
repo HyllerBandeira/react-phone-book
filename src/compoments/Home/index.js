@@ -1,9 +1,8 @@
-import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { FiArrowLeft, FiPlus } from 'react-icons/fi';
+import { FiPlus } from 'react-icons/fi';
 import './styles.css';
 import api from '../../services/api';
-import axios from 'axios'
 
 const CreatePoint = () => {
 
@@ -29,12 +28,12 @@ const CreatePoint = () => {
                         name="name"
                         placeholder="Filter Contact"
                         id="name"
-                        onChange={(e) => { const {name, value} = e.target; setFilterData(value) }}
+                        onChange={(e) => { const {value} = e.target; setFilterData(value) }}
                     />
                 </div>
             </header>
             <header className="align-right">
-                <Link to="/create">
+                <Link to="contact">
                     Cadastrar Contato
                     <FiPlus/>
                 </Link>
@@ -44,7 +43,7 @@ const CreatePoint = () => {
                     {contactsList.map(item => (
                         <li 
                             key={item.id}
-                            onClick={() => history.push(`${item.id}`) }
+                            onClick={() => history.push(`contact/${item.id}`) }
                         >
                             {item.name}
                         </li>

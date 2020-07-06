@@ -8,9 +8,9 @@ export default () => {
   return (
       <BrowserRouter>
         <Route component={Home} path="/" exact></Route>
-        <Route component={Contact} path="/create" exact></Route>
-        <Route component={Contact} path="/:id" exact></Route>
-        <Route component={Contact} path="/:id/:mode" exact></Route>
+        <Route component={Contact} path="/contact" exact></Route>
+        <Route component={Contact} path="/contact/:id" exact></Route>
+        <Route component={Contact} path="/contact/:id/:mode" exact></Route>
       </BrowserRouter>
   )  
 } 
