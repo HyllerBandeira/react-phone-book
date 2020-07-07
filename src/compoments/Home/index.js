@@ -42,6 +42,7 @@ const CreatePoint = () => {
                 <ul className="items-grid">
                     {contactsList.map(item => (
                         <li 
+                            data-contactitem="true"
                             key={item.id}
                             onClick={() => history.push(`contact/${item.id}`) }
                         >
