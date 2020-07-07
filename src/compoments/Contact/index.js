@@ -5,10 +5,10 @@ import { FiArrowLeft } from 'react-icons/fi';
 import './styles.css';
 import api from '../../services/api';
 
-const CreatePoint = () => {
-    const { id, mode } = useParams();
-    const isCreate = typeof id === `undefined`
-    const isShow = mode !== 'edit' && !isCreate
+const CreatePoint = (props) => {
+    const { isCreate, isShow, isEdit } = props;
+    const { id } = useParams();
+    const history = useHistory();
 
     const [ formData, setFormData ] = useState({
         name: '',
@@ -22,12 +22,12 @@ const CreatePoint = () => {
             api.get(`contacts/${id}`)
                 .then(response => {
                     setFormData(response.data)
+                }).catch(error => {
+                    alert('Contato não identificado')
+                    history.push('/')
                 })
         }
     }, [ id, isCreate ])
-
-    const history = useHistory();
-    
 
     function handleInputChange(event) {
        const { name, value } = event.target;
@@ -46,13 +46,12 @@ const CreatePoint = () => {
         }
 
         if (isCreate) {
-            await api.post('contacts', data)
+            const response = await api.post('contacts', data)
                 .then(response => {
                     alert("Contato criado!");
                     history.push('/');
-                }).catch(response => {
-                    console.log(response.data)
-                    alert(response.data.erros);
+                }).catch(error => {
+                    alert(error.response.data.erros);
                 });
 
         } else if (isShow) {
@@ -63,7 +62,6 @@ const CreatePoint = () => {
                 alert("Contato editado!");
                 history.push('/');
             }).catch(error => {
-                console.log(error.response)
                 alert(error.response.data.erros);
             });
         }
@@ -92,6 +90,7 @@ const CreatePoint = () => {
                             type="text"
                             name="name"
                             id="name"
+                            aria-label="name"
                             value={formData.name}
                             onChange={handleInputChange}
                             disabled={isShow}
@@ -99,22 +98,24 @@ const CreatePoint = () => {
                     </div>
                     <div className="field-group">
                         <div className="field">
-                            <label htmlFor="name">Email</label>
+                            <label htmlFor="email">Email</label>
                             <input 
                                 type="email"
                                 name="email"
                                 id="email"
+                                aria-label="email"
                                 value={formData.email}
                                 onChange={handleInputChange}
                                 disabled={isShow}
                             />
                         </div>
                         <div className="field">
-                            <label htmlFor="name">Whatsapp</label>
+                            <label htmlFor="phone">Whatsapp</label>
                             <InputMask 
                                 type="text"
                                 name="phone"
                                 id="phone"
+                                aria-label="phone"
                                 mask="(99) 99999-9999"
                                 value={formData.phone}
                                 onChange={handleInputChange}
@@ -123,18 +124,19 @@ const CreatePoint = () => {
                         </div>
                     </div>
                     <div className="field">
-                        <label htmlFor="name">Endereço</label>
+                        <label htmlFor="address">Endereço</label>
                         <input 
                             type="text"
                             name="address"
                             id="address"
+                            aria-label="address"
                             value={formData.address}
                             onChange={handleInputChange}
                             disabled={isShow}
                         />
                     </div>
                 </fieldset>
-                <button>
+                <button id="submit-button">
                     { (isCreate)? `Cadastrar Contato`: (isShow)? `Editar Contato`: `Salvar Contato` }
                 </button>
             </form>

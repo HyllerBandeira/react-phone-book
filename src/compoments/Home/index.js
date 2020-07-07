@@ -22,12 +22,12 @@ const CreatePoint = () => {
         <div id="page-list-contact">
             <header>
                 <div className="field">
-                    <label htmlFor="name"></label>
+                    <label htmlFor="filter"></label>
                     <input 
                         type="text"
-                        name="name"
+                        name="filter"
                         placeholder="Filter Contact"
-                        id="name"
+                        id="filter"
                         onChange={(e) => { const {value} = e.target; setFilterData(value) }}
                     />
                 </div>
