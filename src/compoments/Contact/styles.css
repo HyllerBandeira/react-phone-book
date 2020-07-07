@@ -160,8 +160,20 @@
     cursor: pointer;
   }
   
+  #page-create-point form button.delete{
+    background: #f00;
+  }
+  
+  #page-create-point form button.delete:hover{
+    background: #b00;
+  }
+  
   #page-create-point form button:hover {
     background: #2FB86E;
+  }
+  
+  #page-create-point form button + button {
+    margin-left: 24px;
   }
   
   .items-grid {

@@ -17,7 +17,7 @@ const CreatePoint = (props) => {
         phone: ''
     });
 
-    useEffect(() => {    
+    useEffect(() => {
         if (!isCreate) {
             api.get(`contacts/${id}`)
                 .then(response => {
@@ -66,6 +66,18 @@ const CreatePoint = (props) => {
             });
         }
 
+    }
+
+    async function handleDeleteSubmit(event) {
+        if (isShow) {
+            const response = await api.delete(`contacts/${id}`)
+                .then(response => {
+                    alert("Contato exluido!");
+                    history.push('/');
+                }).catch(error => {
+                    alert(error.response.data.erros);
+                });
+        }
     }
 
     return (
@@ -136,9 +148,25 @@ const CreatePoint = (props) => {
                         />
                     </div>
                 </fieldset>
-                <button id="submit-button">
-                    { (isCreate)? `Cadastrar Contato`: (isShow)? `Editar Contato`: `Salvar Contato` }
-                </button>
+                
+                <div className="field-group">
+                    <button id="submit-button">
+                        { (isCreate)? `Cadastrar Contato`: (isShow)? `Editar Contato`: `Salvar Contato` }
+                    </button>
+                    
+                    { 
+                        isShow && (
+                            <button className="delete"
+                                type="button"
+                                id="delete-button"
+                                onClick={handleDeleteSubmit}
+                            >
+                                Deletar Contato
+                            </button>
+                        )
+                    }
+                </div>
+                
             </form>
         </div>
     )
